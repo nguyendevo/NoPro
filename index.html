@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NODIXHI Intro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300..700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0;background:var(--from,#f59e0b);overflow:hidden}
+body{display:grid;place-items:center;position:relative}
+
+/* Layer 5 màu lạnh bên góc 90 độ */
+.cool-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden; /* Dùng visibility kết hợp opacity thay cho display:none để chạy được animation */
+  background:
+    radial-gradient(circle at 100% 0%, var(--g5) 0%, var(--g4) 20%, var(--g3) 40%, var(--g2) 60%, var(--g1) 80%, transparent 100%),
+    var(--gbase,#060b19);
+  background-size: 160% 160%;
+  animation: dynamicFlow 6s ease-in-out infinite alternate;
+}
+
+.cool-bg.on{opacity:1;visibility:visible}
+
+@keyframes dynamicFlow {
+  0% { background-position: 100% 0%; }
+  100% { background-position: 85% 15%; }
+}
+
+/* 
+  KỊCH BẢN CHUYỂN ĐỘT NGỘT:
+  - 0s -> 3.8s : Giữ nguyên nền vàng ấm
+  - Đúng 3.8s : Bật đột ngột sang nền màu lạnh ngay tức thì nhờ step-end
+*/
+@keyframes showCoolBgStep {
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+svg{width:min(92vw,980px);height:auto;display:block;overflow:visible;shape-rendering:geometricPrecision;position:relative;z-index:1}
+
+/* Laser-drawn X */
+.gp{fill:var(--ink,#fff);fill-opacity:0;stroke:var(--ink,#fff);stroke-width:2.4;stroke-linejoin:round;stroke-dasharray:1 2;stroke-dashoffset:1}
+.head{fill:none;stroke:var(--ink,#fff);stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:.012 2;stroke-dashoffset:.012;opacity:0}
+.play .gp{animation:draw 1.5s .3s cubic-bezier(.65,0,.35,1) forwards,fillin .5s 1.7s ease forwards}
+.play .head{animation:head 1.5s .3s cubic-bezier(.65,0,.35,1) forwards}
+.glow{opacity:0}
+.play .glow{animation:glow 3s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fillin{to{fill-opacity:1;stroke-opacity:0}}
+@keyframes head{0%{opacity:1;stroke-dashoffset:.012}98%{opacity:1}100%{opacity:0;stroke-dashoffset:-.988}}
+@keyframes glow{0%{opacity:.85}60%{opacity:1}75%{opacity:.7}100%{opacity:.3}}
+
+/* Letters */
+.t{fill:none;stroke:var(--ink,#fff);stroke-width:5.8}
+.f{fill:var(--ink,#fff)}
+.L{opacity:1}
+
+/* Màn hình cuối: nền đen + chữ Coming soon... ở giữa */
+.end{
+  position:fixed;inset:0;z-index:10;background:#000;
+  display:grid;place-items:center;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .6s ease, visibility 0s linear .6s;
+}
+.end.show{opacity:1;visibility:visible;transition:opacity 1.2s ease, visibility 0s}
+.end span{
+  font-family:'Google Sans','Google Sans Flex','Product Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  font-weight:700;color:#fff;letter-spacing:.08em;text-transform:uppercase;text-align:center;
+  font-size:clamp(28px,6vw,72px);
+  transform:translateY(8px);opacity:0;
+  transition:transform 1.2s ease .3s, opacity 1.2s ease .3s;
+}
+.end.show span{transform:none;opacity:1}
+</style>
+</head>
+<body>
+
+<div class="cool-bg"></div>
+<div class="end" id="end"><span>COMING SOON...</span></div>
+
+<svg id="s" viewBox="104.5 -12 320 104" role="img" aria-label="NODIXHI">
+  <defs>
+    <filter id="gl" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="a"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="a"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- X glyph -->
+  <g id="xw">
+    <g transform="translate(295.18 17) scale(0.1278)">
+      <path class="gp" pathLength="1" d="M2.4 1.3L2.4 1.3L3.1 0.8L3.1 0.8L3.1 0.8L3.9 0.3L3.9 0.3L3.9 0.3L4.7 0.1L4.7 0.1L4.7 0.1L5.6 0.0L5.6 0.0L264.2 0.0L264.2 0.0L265.1 0.1L265.1 0.1L265.1 0.1L265.9 0.3L265.9 0.3L265.9 0.3L266.7 0.8L266.7 0.8L266.7 0.8L267.4 1.3L267.4 1.3L267.4 1.3L268.0 2.0L268.0 2.0L268.0 2.0L268.4 2.8L268.4 2.8L268.4 2.8L268.7 3.6L268.7 3.6L268.7 3.6L268.8 4.5L268.8 4.5L268.8 4.5L268.7 5.4L268.7 5.4L268.7 5.4L268.5 6.3L268.5 6.3L268.5 6.3L268.1 7.1L268.1 7.1L266.5 9.5L255.4 26.9L182.9 140.2L182.9 140.2L182.5 140.7L182.5 140.7L182.5 140.7L182.0 141.0L182.0 141.0L182.0 141.1L181.5 141.3L181.5 141.3L181.5 141.3L180.9 141.5L180.9 141.5L180.9 141.5L180.3 141.6L180.3 141.6L180.3 141.6L179.7 141.5L179.7 141.5L179.7 141.5L179.2 141.3L179.2 141.3L179.2 141.3L178.6 141.1L178.6 141.0L178.6 141.0L178.2 140.7L178.2 140.7L178.2 140.7L177.8 140.2L177.8 140.2L171.3 130.1L171.3 130.1L171.1 129.5L171.1 129.5L171.1 129.5L170.9 129.0L170.9 129.0L170.9 129.0L170.9 128.4L170.9 128.4L170.9 128.4L170.9 127.9L170.9 127.9L170.9 127.9L171.1 127.3L171.1 127.3L171.1 127.3L171.3 126.8L171.3 126.8L243.7 13.7L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L246.4 9.5L241.6 9.5L241.6 9.5L241.6 9.5L241.6 9.5L241.6 9.5L241.6 9.5L241.6 9.5L241.6 9.5L241.6 9.5L241.6 9.5L241.6 9.5L170.4 120.7L170.4 120.7L170.0 121.2L170.0 121.2L170.0 121.2L169.6 121.6L169.6 121.6L169.6 121.6L169.1 121.9L169.1 121.9L169.1 121.9L168.5 122.1L168.5 122.1L168.5 122.1L167.9 122.1L167.9 122.1L167.9 122.1L167.3 122.1L167.3 122.1L167.3 122.1L166.7 121.9L166.7 121.9L166.7 121.9L166.2 121.6L166.2 121.6L166.2 121.6L165.7 121.2L165.7 121.2L165.7 121.2L165.4 120.7L165.4 120.7L158.4 109.8L158.4 109.8L158.1 109.3L158.1 109.3L158.1 109.3L158.0 108.8L158.0 108.8L158.0 108.8L157.9 108.2L157.9 108.2L157.9 108.2L158.0 107.6L158.0 107.6L158.0 107.6L158.1 107.1L158.1 107.1L158.1 107.1L158.4 106.6L158.4 106.6L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L220.5 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L47.3 9.5L142.9 158.9L142.9 158.9L143.2 159.4L143.2 159.4L143.2 159.4L143.3 160.0L143.3 160.0L143.3 160.0L143.4 160.5L143.4 160.5L143.4 160.5L143.3 161.1L143.3 161.1L143.3 161.1L143.2 161.7L143.2 161.7L143.2 161.7L142.9 162.2L142.9 162.2L137.1 171.3L137.1 171.3L136.7 171.8L136.7 171.8L136.7 171.8L136.2 172.1L136.2 172.1L136.2 172.1L135.7 172.4L135.7 172.4L135.7 172.4L135.1 172.6L135.1 172.6L135.1 172.6L134.5 172.7L134.5 172.7L134.5 172.7L133.9 172.6L133.9 172.6L133.9 172.6L133.4 172.4L133.4 172.4L133.4 172.4L132.8 172.1L132.8 172.1L132.8 172.1L132.4 171.8L132.4 171.8L132.4 171.8L132.0 171.3L132.0 171.3L28.5 9.5L28.5 9.5L28.5 9.5L28.5 9.5L28.5 9.5L28.5 9.5L28.5 9.5L28.5 9.5L28.5 9.5L28.5 9.5L28.5 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L23.7 9.5L26.2 13.4L131.1 177.4L131.1 177.4L131.4 177.9L131.4 177.9L131.4 177.9L131.5 178.4L131.5 178.4L131.5 178.4L131.6 179.0L131.6 179.0L131.6 179.0L131.5 179.5L131.5 179.6L131.5 179.6L131.4 180.1L131.4 180.1L131.4 180.1L131.1 180.6L131.1 180.6L124.5 191.0L124.5 191.0L124.1 191.4L124.1 191.4L124.1 191.4L123.6 191.8L123.6 191.8L123.6 191.8L123.1 192.1L123.1 192.1L123.1 192.1L122.5 192.3L122.5 192.3L122.5 192.3L121.9 192.4L121.9 192.4L121.9 192.4L121.3 192.3L121.3 192.3L121.3 192.3L120.8 192.1L120.8 192.1L120.8 192.1L120.2 191.8L120.2 191.8L120.2 191.8L119.8 191.4L119.8 191.4L119.8 191.4L119.4 191.0L119.4 191.0L14.4 26.9L14.4 26.9L1.9 7.4L1.7 7.1L1.7 7.1L1.3 6.3L1.3 6.3L1.3 6.3L1.1 5.4L1.1 5.4L1.1 5.4L1.0 4.5L1.0 4.5L1.0 4.5L1.1 3.6L1.1 3.6L1.1 3.6L1.4 2.8L1.4 2.8L1.4 2.8L1.8 2.0L1.8 2.0L1.8 2.0L2.4 1.3Z"/>
+      <path class="gp" pathLength="1" d="M266.4 358.7L266.4 358.7L265.7 359.2L265.7 359.2L265.7 359.2L264.9 359.7L264.9 359.7L264.9 359.7L264.1 359.9L264.1 359.9L264.1 359.9L263.2 360.0L263.2 360.0L4.6 360.0L4.6 360.0L3.7 359.9L3.7 359.9L3.7 359.9L2.9 359.7L2.9 359.7L2.9 359.7L2.1 359.2L2.1 359.2L2.1 359.2L1.4 358.7L1.4 358.7L1.4 358.7L0.8 358.0L0.8 358.0L0.8 358.0L0.4 357.2L0.4 357.2L0.4 357.2L0.1 356.4L0.1 356.4L0.1 356.4L0.0 355.5L0.0 355.5L0.0 355.5L0.1 354.6L0.1 354.6L0.1 354.6L0.3 353.7L0.3 353.7L0.3 353.7L0.7 352.9L0.7 352.9L2.3 350.5L13.4 333.1L85.9 219.8L85.9 219.8L86.3 219.3L86.3 219.3L86.3 219.3L86.7 219.0L86.7 219.0L86.7 218.9L87.3 218.7L87.3 218.7L87.3 218.7L87.8 218.5L87.8 218.5L87.8 218.5L88.4 218.4L88.4 218.4L88.4 218.4L89.0 218.5L89.0 218.5L89.0 218.5L89.6 218.7L89.6 218.7L89.6 218.7L90.1 218.9L90.1 219.0L90.1 219.0L90.6 219.3L90.6 219.3L90.6 219.3L91.0 219.8L91.0 219.8L97.5 229.9L97.5 229.9L97.7 230.5L97.7 230.5L97.7 230.5L97.9 231.0L97.9 231.0L97.9 231.0L97.9 231.6L97.9 231.6L97.9 231.6L97.9 232.1L97.9 232.1L97.9 232.1L97.7 232.7L97.7 232.7L97.7 232.7L97.5 233.2L97.5 233.2L25.1 346.3L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L22.4 350.5L27.2 350.5L27.2 350.5L27.2 350.5L27.2 350.5L27.2 350.5L27.2 350.5L27.2 350.5L27.2 350.5L27.2 350.5L27.2 350.5L27.2 350.5L98.4 239.3L98.4 239.3L98.7 238.8L98.7 238.8L98.7 238.8L99.2 238.4L99.2 238.4L99.2 238.4L99.7 238.1L99.7 238.1L99.7 238.1L100.3 237.9L100.3 237.9L100.3 237.9L100.9 237.9L100.9 237.9L100.9 237.9L101.5 237.9L101.5 237.9L101.5 237.9L102.1 238.1L102.1 238.1L102.1 238.1L102.6 238.4L102.6 238.4L102.6 238.4L103.0 238.8L103.0 238.8L103.0 238.8L103.4 239.3L103.4 239.3L110.4 250.2L110.4 250.2L110.7 250.7L110.7 250.7L110.7 250.7L110.8 251.2L110.8 251.2L110.8 251.2L110.9 251.8L110.9 251.8L110.9 251.8L110.8 252.4L110.8 252.4L110.8 252.4L110.7 252.9L110.7 252.9L110.7 252.9L110.4 253.4L110.4 253.4L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L48.3 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L221.5 350.5L125.9 201.1L125.9 201.1L125.6 200.6L125.6 200.6L125.6 200.6L125.5 200.0L125.5 200.0L125.5 200.0L125.4 199.5L125.4 199.5L125.4 199.5L125.5 198.9L125.5 198.9L125.5 198.9L125.6 198.3L125.6 198.3L125.6 198.3L125.9 197.8L125.9 197.8L132.5 187.5L132.5 187.5L132.9 187.0L132.9 187.0L132.9 187.0L133.3 186.6L133.3 186.6L133.3 186.6L133.9 186.3L133.9 186.3L133.9 186.3L134.4 186.1L134.4 186.1L134.4 186.1L135.0 186.1L135.0 186.1L135.0 186.1L135.6 186.1L135.6 186.1L135.6 186.1L136.2 186.3L136.2 186.3L136.2 186.3L136.7 186.6L136.7 186.6L136.7 186.6L137.2 187.0L137.2 187.0L137.2 187.0L137.6 187.5L137.6 187.5L241.4 349.6L241.9 350.5L241.9 350.5L241.9 350.5L241.9 350.5L241.9 350.5L241.9 350.5L241.9 350.5L241.9 350.5L241.9 350.5L241.9 350.5L241.9 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L246.7 350.5L243.3 345.1L138.5 181.4L138.5 181.4L138.2 180.9L138.2 180.9L138.2 180.9L138.1 180.3L138.1 180.3L138.1 180.3L138.0 179.8L138.0 179.8L138.0 179.8L138.1 179.2L138.1 179.2L138.1 179.2L138.2 178.7L138.2 178.7L138.2 178.7L138.5 178.1L138.5 178.1L144.3 169.0L144.3 169.0L144.7 168.6L144.7 168.6L144.7 168.6L145.1 168.2L145.1 168.2L145.1 168.2L145.7 167.9L145.7 167.9L145.7 167.9L146.2 167.7L146.2 167.7L146.2 167.7L146.8 167.6L146.8 167.6L146.8 167.6L147.4 167.7L147.4 167.7L147.4 167.7L148.0 167.9L148.0 167.9L148.0 167.9L148.5 168.2L148.5 168.2L148.5 168.2L149.0 168.6L149.0 168.6L149.0 168.6L149.4 169.0L149.4 169.0L254.4 333.1L266.9 352.6L267.1 352.9L267.1 352.9L267.5 353.7L267.5 353.7L267.5 353.7L267.7 354.6L267.7 354.6L267.7 354.6L267.8 355.5L267.8 355.5L267.8 355.5L267.7 356.4L267.7 356.4L267.7 356.4L267.4 357.2L267.4 357.2L267.4 357.2L267.0 358.0L267.0 358.0L267.0 358.0L266.4 358.7Z"/>
+    </g>
+  </g>
+
+  <!-- Letters: NODIXHI -->
+  <g class="L">
+    <path class="f" d="M137.2 63V17H144.63L165.99 52.13H166.31L165.99 43.31V17H172.16V63H165.73L143.36 26.16H143.04L143.36 34.97V63Z"/>
+    <path class="f" d="M202.51 64.03Q197.67 64.03 193.67 62.28Q189.67 60.53 186.75 57.34Q183.83 54.15 182.25 49.75Q180.68 45.36 180.68 40Q180.68 34.65 182.25 30.25Q183.83 25.86 186.75 22.66Q189.67 19.46 193.67 17.71Q197.66 15.97 202.51 15.97Q207.34 15.97 211.31 17.71Q215.27 19.46 218.2 22.65Q221.13 25.85 222.71 30.25Q224.28 34.65 224.28 40Q224.28 45.35 222.71 49.75Q221.13 54.15 218.2 57.34Q215.27 60.53 211.31 62.28Q207.34 64.03 202.51 64.03ZM202.51 58.08Q206.94 58.08 210.43 55.97Q213.92 53.87 215.97 49.83Q218.01 45.79 218.01 40Q218.01 34.2 215.97 30.16Q213.92 26.13 210.43 24.03Q206.94 21.92 202.51 21.92Q198.07 21.92 194.55 24.03Q191.03 26.13 189.02 30.16Q187 34.2 187 40Q187 45.79 189.02 49.83Q191.03 53.87 194.55 55.97Q198.07 58.08 202.51 58.08Z"/>
+    <path class="f" d="M232.8 63V17H248.14Q255.03 17 259.82 19.72Q264.61 22.45 267.13 27.58Q269.64 32.71 269.64 40Q269.64 47.28 267.13 52.42Q264.61 57.55 259.82 60.28Q255.03 63 248.14 63ZM239.04 57.05H248Q252.85 57.05 256.27 55.24Q259.69 53.43 261.54 49.67Q263.38 45.91 263.38 40Q263.38 34.09 261.54 30.3Q259.69 26.52 256.27 24.73Q252.85 22.95 248 22.95H239.04Z"/>
+    <path class="f" d="M278.16 63V17H284.4V63Z"/>
+    <path class="f" d="M340.33 63V17H346.57V63ZM343.68 42.44V36.49H370.97V42.44ZM368.57 63V17H374.76V63Z"/>
+    <path class="f" d="M385.56 63V17H391.8V63Z"/>
+  </g>
+</svg>
+
+<script>
+const svg=document.getElementById('s'), xw=document.getElementById('xw');
+xw.querySelectorAll('.gp').forEach(p=>{const h=p.cloneNode();h.setAttribute('class','head');p.parentNode.appendChild(h)});
+const glow=xw.cloneNode(true);glow.removeAttribute('id');glow.setAttribute('class','glow');glow.setAttribute('filter','url(#gl)');xw.before(glow);
+
+const root=document.documentElement,coolEl=document.querySelector('.cool-bg');
+const endEl=document.getElementById('end');
+const COOL_AT=3800;   // ms: lúc nền đổi sang màu thứ hai
+const END_DELAY=5500; // ms: sau khi intro chạy xong thì hiện COMING SOON...
+const LOOP_DELAY=5000;// ms: COMING SOON... hiển thị bao lâu thì lặp lại
+// Mỗi vòng một cặp màu: from (nền đầu) -> g (nền gradient sau khi đổi). ink = màu logo.
+const THEMES=[
+ {name:'Vàng → Xanh dương', from:'#f59e0b',ink:'#fff',   g:['#06b6d4','#0284c7','#2563eb','#1d4ed8','#1e3a8a'],base:'#050a1f',toInk:'#fff'},
+ {name:'Xanh dương → Tím',  from:'#2563eb',ink:'#fff',   g:['#a78bfa','#8b5cf6','#7c3aed','#6d28d9','#4c1d95'],base:'#0d0620',toInk:'#fff'},
+ {name:'Tím → Đen',         from:'#7c3aed',ink:'#fff',   g:['#18181b','#27272a','#3f3f46','#52525b','#71717a'],base:'#000000',toInk:'#fff'},
+ {name:'Hồng → Cam',        from:'#ec4899',ink:'#fff',   g:['#fdba74','#fb923c','#f97316','#ea580c','#c2410c'],base:'#1c0a02',toInk:'#fff'},
+ {name:'Xanh lá → Be',      from:'#22c55e',ink:'#fff',   g:['#f5ebd7','#efe0c4','#e8d5b0','#dcc59a','#cfb185'],base:'#e9dcc2',toInk:'#2b2118'},
+ {name:'Be → Đỏ',           from:'#e8d9b8',ink:'#2b2118',g:['#fb7185','#ef4444','#dc2626','#b91c1c','#7f1d1d'],base:'#1a0505',toInk:'#fff'},
+ {name:'Đỏ → Xanh ngọc',    from:'#dc2626',ink:'#fff',   g:['#5eead4','#2dd4bf','#14b8a6','#0d9488','#115e59'],base:'#021412',toInk:'#fff'},
+ {name:'Xanh ngọc → Vàng',  from:'#14b8a6',ink:'#fff',   g:['#fef08a','#fde047','#facc15','#eab308','#ca8a04'],base:'#2a2000',toInk:'#2a1f00'}
+];
+let ti=0,coolTimer,endTimer,loopTimer;
+function play(advance){
+  clearTimeout(coolTimer);clearTimeout(endTimer);clearTimeout(loopTimer);
+  if(advance===true)ti=(ti+1)%THEMES.length;
+  const th=THEMES[ti];
+  root.style.setProperty('--from',th.from);
+  root.style.setProperty('--ink',th.ink);
+  th.g.forEach((c,k)=>root.style.setProperty('--g'+(k+1),c));
+  root.style.setProperty('--gbase',th.base);
+  coolEl.classList.remove('on');
+  svg.classList.remove('play');
+  endEl.classList.remove('show');
+  void svg.getBoundingClientRect();
+  svg.classList.add('play');
+  coolTimer=setTimeout(()=>{coolEl.classList.add('on');root.style.setProperty('--ink',th.toInk)},COOL_AT);
+  endTimer=setTimeout(()=>{
+    endEl.classList.add('show');
+    loopTimer=setTimeout(()=>play(true),LOOP_DELAY);
+  },END_DELAY);
+}
+document.addEventListener('click',e=>{if(e.button===0)play()});
+play();
+</script>
+</body>
+</html>
